@@ -1,0 +1,59 @@
+servingcard: "0.1"
+model: qwen3-coder
+variant: nvfp4-baseline
+hardware: nvidia-gb10
+framework: vllm>=0.8.0
+author: zenprocess
+created: "2025-06-15"
+method: autoresearch
+
+description: >
+  NVFP4 quantization variant. Half the memory of FP8, enabling 262K
+  context. Slight quality degradation — route complexity=high tasks
+  to FP8 instead.
+
+hardware_details:
+  gpu: nvidia-gb10
+  memory_gb: 128
+  memory_type: uma
+  architecture: grace-blackwell
+
+quantization:
+  method: nvfp4
+  bits: 4
+
+benchmark:
+  single_stream:
+    tok_s: 42
+    context: "Single request, no batching"
+  latency:
+    ttft_ms: 650
+    context: "First-token latency, NVFP4 quantization"
+
+capacity:
+  context_limit: 262144
+  context_soft_limit: 200000
+  max_concurrent: 8
+  gpu_memory_utilization: 0.78
+
+serving:
+  engine_args:
+    model: qwen3-coder
+    quantization: nvfp4
+    gpu_memory_utilization: 0.78
+    max_model_len: 262144
+  sampling_defaults:
+    temperature: 0.2
+    top_p: 1.0
+  sampling_notes:
+    - "logit_bias: unsupported with NVFP4"
+    - "min_p: unsupported with NVFP4"
+
+readiness:
+  health_endpoint: /health
+  warmup_requests: 0
+
+notes:
+  - "MUST use gpu_memory_utilization 0.78. 0.80+ causes NVRM errors on UMA."
+  - "Slight quality degradation vs FP8. Route complexity=high to FP8."
+  - "Double context window (262K vs 131K) is the main advantage over FP8."

@@ -1,0 +1,59 @@
+servingcard: "0.1"
+model: qwen3-coder
+variant: fp8-baseline
+hardware: nvidia-gb10
+framework: vllm>=0.8.0
+author: zenprocess
+created: "2025-06-15"
+method: autoresearch
+
+description: >
+  Baseline FP8 config without speculative decoding. Lower latency than
+  Eagle3 variant but lower throughput. Good fallback when draft model
+  is unavailable.
+
+hardware_details:
+  gpu: nvidia-gb10
+  memory_gb: 128
+  memory_type: uma
+  architecture: grace-blackwell
+
+quantization:
+  method: fp8
+  bits: 8
+
+benchmark:
+  single_stream:
+    tok_s: 42
+    context: "Single request, no batching"
+  parallel:
+    peak_tok_s: 312
+    peak_concurrency: 8
+    context: "Peak throughput under parallel load"
+  latency:
+    ttft_ms: 780
+    context: "First-token latency, no draft model overhead"
+
+capacity:
+  context_limit: 131072
+  context_soft_limit: 110000
+  max_concurrent: 16
+  gpu_memory_utilization: 0.90
+
+serving:
+  engine_args:
+    model: qwen3-coder
+    quantization: fp8
+    gpu_memory_utilization: 0.90
+    max_model_len: 131072
+  sampling_defaults:
+    temperature: 0.2
+    top_p: 1.0
+
+readiness:
+  health_endpoint: /health
+  warmup_requests: 0
+
+notes:
+  - "Simpler config — no draft model required."
+  - "Lower TTFT makes this better for latency-sensitive single requests."
