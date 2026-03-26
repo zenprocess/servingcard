@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "servingcard"
 version = "0.1.0"
 description = "Hardware-specific LLM serving configurations — model cards for serving"
-readme = "../../README.md"
+readme = {text = "Hardware-specific LLM serving configurations. Model cards for serving.\n\nSee https://github.com/zenprocess/servingcard for full documentation.", content-type = "text/markdown"}
 requires-python = ">=3.10"
 license = "MIT"
 authors = [
