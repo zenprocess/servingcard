@@ -30,6 +30,21 @@ class BenchmarkSection(BaseModel):
     latency: BenchmarkEntry | None = None
 
 
+class PawBenchResults(BaseModel):
+    """PawBench benchmark results."""
+
+    suite: str = "full"  # quick | standard | full
+    single_stream_tok_s: float
+    parallel_peak_tok_s: float | None = None
+    peak_concurrency: int | None = None
+    ttft_ms: float
+    quality_score: float = Field(ge=0, le=1)
+    cacp_compliance: float = Field(ge=0, le=1)
+    useful_token_ratio: float | None = Field(default=None, ge=0, le=1)
+    tokens_per_turn: float | None = None
+    adaptability_score: float | None = Field(default=None, ge=0, le=1)
+
+
 class HardwareDetails(BaseModel):
     """Hardware specification."""
 
@@ -117,6 +132,7 @@ class ServingCard(BaseModel):
     quantization: QuantizationSection | None = None
     speculative_decoding: SpeculativeDecodingSection | None = None
     benchmark: BenchmarkSection | None = None
+    pawbench: PawBenchResults | None = None
     capacity: CapacitySection | None = None
     serving: ServingSection | None = None
     prerequisites: PrerequisitesSection | None = None

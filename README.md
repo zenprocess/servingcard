@@ -35,7 +35,8 @@ for community sharing.
 - **Hardware-specific** -- same model, different configs for RTX 4090 vs A100 vs GB10
 - **Benchmarks required** -- configs without benchmarks are guesses, not serving cards
 - **Framework-aware** -- vLLM, TGI, SGLang, llama.cpp params in one standard
-- **One-command apply** -- `servingcard launch qwen3-coder/gb10-fp8-eagle3-spec3.yaml`
+- **One-command apply** -- `servingcard apply qwen3-coder/gb10-fp8-eagle3-spec3`
+- **Benchmark-first** -- `servingcard benchmark` runs PawBench and produces a card in one step
 - **Autoresearch-compatible** -- auto-tuning tools export directly to serving cards
 - **Community registry** -- share and discover optimized configs
 - **Transform documentation** -- model output quirks (think tags, float coercion) captured alongside the config
@@ -54,27 +55,43 @@ Serving cards are not the right tool for every situation. Be honest about scope:
 ## Quick Start
 
 ```bash
-# Clone the repo (PyPI package coming soon)
-git clone https://github.com/zenprocess/servingcard
-cd servingcard/packages/python
-pip install -e .
+pip install -e packages/python  # or: pip install servingcard
+```
 
-# Validate a config
+### Benchmark your model
+
+```bash
+servingcard benchmark \
+  --model qwen3-coder \
+  --hardware nvidia-gb10 \
+  --endpoint http://localhost:8000
+
+# Produces: qwen3-coder-nvidia-gb10.yaml
+# Uses PawBench if installed, otherwise prompts for manual entry
+```
+
+### Apply a community config
+
+```bash
+# From the registry (shorthand)
+servingcard apply qwen3-coder/gb10-fp8-eagle3-spec3
+
+# From a local file
+servingcard apply ./my-config.yaml
+
+# From a URL
+servingcard apply --url https://raw.githubusercontent.com/.../config.yaml
+
+# Outputs the vllm serve command with optimized params — copy and run
+```
+
+### Validate and inspect
+
+```bash
 servingcard validate registry/qwen3-coder/gb10-fp8-eagle3-spec3.yaml
-
-# Show summary info
 servingcard info registry/qwen3-coder/gb10-fp8-eagle3-spec3.yaml
-
-# Search the registry
-servingcard search --model qwen3-coder --hardware nvidia-gb10
-
-# Launch vLLM from a serving card
-servingcard launch registry/qwen3-coder/gb10-fp8-eagle3-spec3.yaml
-# Expands to: vllm serve Qwen/Qwen3-Coder-480B-A35B-FP8 \
-#   --tensor-parallel-size 1 --max-model-len 131072 \
-#   --gpu-memory-utilization 0.90 --quantization fp8 \
-#   --speculative-model aurora-spec-qwen3-coder \
-#   --num-speculative-tokens 3
+servingcard search qwen3-coder
+servingcard search --hardware nvidia-gb10
 ```
 
 ## Format Overview
@@ -366,10 +383,10 @@ runs on specific hardware, not how good its outputs are.
 
 | Tool | Status | Description |
 |------|--------|-------------|
-| vLLM | `servingcard launch` | Generate vLLM CLI from a serving card |
+| vLLM | `servingcard apply` | Generate vLLM CLI from a serving card |
 | Multi-agent dispatchers | Compatible | Any dispatcher can read serving cards for routing and capacity |
 | [auto-tuning-vllm](https://github.com/zenprocess/auto-tuning-vllm) | Planned | Export tuning results as serving cards |
-| TGI | Planned | `servingcard launch --engine tgi` param mapping |
+| TGI | Planned | `servingcard apply --engine tgi` param mapping |
 | SGLang | Planned | SGLang param mapping |
 | Your tool here | -- | PRs welcome |
 

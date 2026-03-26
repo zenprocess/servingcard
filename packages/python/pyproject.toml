@@ -46,6 +46,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+benchmark = ["pawbench"]
 dev = [
     "pytest>=7.0",
     "pytest-cov",
