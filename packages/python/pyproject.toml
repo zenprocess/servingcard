@@ -6,10 +6,38 @@ build-backend = "hatchling.build"
 name = "servingcard"
 version = "0.1.0"
 description = "Hardware-specific LLM serving configurations — model cards for serving"
+readme = "../../README.md"
 requires-python = ">=3.10"
 license = "MIT"
 authors = [
-    { name = "zenprocess" },
+    { name = "zenprocess", email = "zen@zenprocess.dev" },
+]
+keywords = [
+    "llm",
+    "serving",
+    "vllm",
+    "inference",
+    "model-serving",
+    "gpu",
+    "benchmark",
+    "configuration",
+    "speculative-decoding",
+    "quantization",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: System :: Hardware",
+    "Typing :: Typed",
 ]
 dependencies = [
     "pydantic>=2.0",
@@ -21,7 +49,15 @@ dependencies = [
 dev = [
     "pytest>=7.0",
     "pytest-cov",
+    "yamllint",
 ]
+
+[project.urls]
+Homepage = "https://github.com/zenprocess/servingcard"
+Documentation = "https://github.com/zenprocess/servingcard#readme"
+Repository = "https://github.com/zenprocess/servingcard"
+Issues = "https://github.com/zenprocess/servingcard/issues"
+Changelog = "https://github.com/zenprocess/servingcard/releases"
 
 [project.scripts]
 servingcard = "servingcard.cli:app"
