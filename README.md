@@ -2,10 +2,11 @@
 
 > Hardware-specific LLM serving configurations. Model cards for serving.
 
-[![Spec Version](https://img.shields.io/badge/spec-v1.0-blue)](spec/servingcard-v1.md)
+[![CI](https://github.com/zenprocess/servingcard/actions/workflows/ci.yml/badge.svg)](https://github.com/zenprocess/servingcard/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/servingcard)](https://pypi.org/project/servingcard/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.10+-blue)](packages/python/)
-[![CI](https://img.shields.io/badge/CI-validate-passing)](https://github.com/zenprocess/servingcard/actions)
+[![Python](https://img.shields.io/pypi/pyversions/servingcard)](https://pypi.org/project/servingcard/)
+[![Spec](https://img.shields.io/badge/spec-v1.0-blue)](spec/servingcard-v1.md)
 
 ## Why Serving Cards?
 
