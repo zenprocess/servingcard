@@ -137,7 +137,7 @@ benchmark:
     peak_tok_s: 469           # Aggregate tok/s at peak
     concurrency: 8            # What concurrency level
   methodology:
-    tool: switchyard-bench    # What benchmark tool
+    tool: benchmark_serving    # What benchmark tool
     prompt_distribution: coding-tasks
     num_runs: 10
     confidence_interval: 0.95

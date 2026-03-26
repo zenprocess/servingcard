@@ -54,7 +54,10 @@ Serving cards are not the right tool for every situation. Be honest about scope:
 ## Quick Start
 
 ```bash
-pip install servingcard
+# Clone the repo (PyPI package coming soon)
+git clone https://github.com/zenprocess/servingcard
+cd servingcard/packages/python
+pip install -e .
 
 # Validate a config
 servingcard validate registry/qwen3-coder/gb10-fp8-eagle3-spec3.yaml
@@ -135,7 +138,7 @@ benchmark:
     peak_tok_s: 469                    # Aggregate tok/s at peak concurrency
     concurrency: 8
   methodology:
-    tool: switchyard-bench
+    tool: benchmark_serving
     prompt_distribution: coding-tasks
     num_runs: 10
     confidence_interval: 0.95
@@ -184,20 +187,15 @@ Registry path convention: `registry/{model}/{hardware}-{quant}-{variant}.yaml`
 
 *Your config here -- [contribute](#contributing)*
 
-## Using Serving Cards with LLMs
+## Using Serving Cards Programmatically
 
-An LLM-powered coding agent like [Switchyard](https://github.com/zenprocess/switchyard)
-uses serving cards to make runtime decisions:
+Any tool that manages LLM inference can use serving cards to make runtime
+decisions:
 
 ```python
 from servingcard.schema import ServingCard
 
 card = ServingCard.from_yaml("registry/qwen3-coder/gb10-fp8-eagle3-spec3.yaml")
-
-# Routing: pick the right config for the task
-if task_complexity == "high":
-    # FP8 for quality, Eagle3 for throughput
-    assert card.variant == "fp8-eagle3-spec3"
 
 # Capacity planning: don't exceed tested limits
 if card.capacity:
@@ -264,7 +262,9 @@ Submit a serving card in 4 steps:
 
 3. **Validate** your card:
    ```bash
-   pip install servingcard
+   # Clone the repo (PyPI package coming soon)
+   git clone https://github.com/zenprocess/servingcard
+   cd servingcard/packages/python && pip install -e .
    servingcard validate your-config.yaml
    ```
 
@@ -366,11 +366,12 @@ runs on specific hardware, not how good its outputs are.
 
 | Tool | Status | Description |
 |------|--------|-------------|
-| [Switchyard](https://github.com/zenprocess/switchyard) | Native | Multi-agent dispatcher reads serving cards for routing and capacity |
 | vLLM | `servingcard launch` | Generate vLLM CLI from a serving card |
+| Multi-agent dispatchers | Compatible | Any dispatcher can read serving cards for routing and capacity |
 | [auto-tuning-vllm](https://github.com/zenprocess/auto-tuning-vllm) | Planned | Export tuning results as serving cards |
 | TGI | Planned | `servingcard launch --engine tgi` param mapping |
 | SGLang | Planned | SGLang param mapping |
+| Your tool here | -- | PRs welcome |
 
 ## Ecosystem
 

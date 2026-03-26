@@ -52,7 +52,9 @@ See the [specification](spec/servingcard-v1.md) for all available sections.
 ### 3. Validate
 
 ```bash
-pip install servingcard
+# Clone the repo (PyPI package coming soon)
+git clone https://github.com/zenprocess/servingcard
+cd servingcard/packages/python && pip install -e .
 servingcard validate your-config.yaml
 ```
 

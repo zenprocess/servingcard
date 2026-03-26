@@ -6,7 +6,10 @@ serving card.
 ## Installation
 
 ```bash
-pip install servingcard
+# Clone the repo (PyPI package coming soon)
+git clone https://github.com/zenprocess/servingcard
+cd servingcard/packages/python
+pip install -e .
 ```
 
 This installs the `servingcard` CLI and the Python library.
