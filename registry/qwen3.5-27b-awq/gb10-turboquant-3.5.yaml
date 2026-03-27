@@ -46,7 +46,7 @@ benchmarks:
     notes: "Cold start — prefix cache hit rate 0.0%. No warm cache tricks. Triton 3.6 TQ native kernel."
 
   - author: zenprocess
-    status: independent
+    status: verified
     date: "2026-03-27"
     method: pawbench-full
     tok_s: 27.9
