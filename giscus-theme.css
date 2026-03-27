@@ -1,0 +1,11 @@
+/*! ServingCard Amber Circuit theme for Giscus */
+main{--color-btn-primary-bg:#a33900;--color-btn-primary-border:rgba(163,57,0,.8);--color-btn-primary-hover-bg:#cc4900;--color-btn-primary-text:#fff;--color-btn-primary-disabled-bg:rgba(163,57,0,.5);--color-btn-primary-focus-shadow:0 0 0 3px rgba(163,57,0,.3);--color-btn-bg:#f3f3f2;--color-btn-border:#d1d1d0;--color-btn-hover-bg:#ededec;--color-btn-text:#1a1a1a;--color-btn-focus-shadow:0 0 0 3px rgba(163,57,0,.2);--color-accent-fg:#a33900;--color-accent-emphasis:#a33900;--color-accent-muted:rgba(163,57,0,.4);--color-accent-subtle:rgba(163,57,0,.1);--color-canvas-default:#f9f9f8;--color-canvas-overlay:#fff;--color-canvas-inset:#f3f3f2;--color-canvas-subtle:#f3f3f2;--color-border-default:#d1d1d0;--color-border-muted:#e5e5e4;--color-fg-default:#1a1a1a;--color-fg-muted:#555;--color-fg-subtle:#8b8685;--color-fg-on-emphasis:#fff;--color-neutral-muted:rgba(163,57,0,.1);--color-timeline-badge-bg:#f3f3f2}
+main .gsc-comment-box{border:1px solid #d1d1d0;background:#fff}
+main .gsc-comment-box:focus-within{border-color:#a33900;box-shadow:0 0 0 3px rgba(163,57,0,.1)}
+main .gsc-reactions-button{border:1px solid #e5e5e4;background:#f9f9f8;color:#555}
+main .gsc-reactions-button:hover{border-color:#d1d1d0;background:#f3f3f2}
+main .gsc-reactions-button.has-reacted{color:#a33900;border-color:rgba(163,57,0,.4);background:rgba(163,57,0,.06)}
+main textarea{background:#fff;border:1px solid #d1d1d0;color:#1a1a1a}
+main textarea:focus{border-color:#a33900;box-shadow:0 0 0 3px rgba(163,57,0,.1)}
+main a{color:#a33900}
+main a:hover{color:#cc4900}
