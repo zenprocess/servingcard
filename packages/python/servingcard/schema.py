@@ -9,6 +9,30 @@ import yaml
 from pydantic import BaseModel, ConfigDict, Field
 
 
+class BenchmarkObservation(BaseModel):
+    """A single benchmark observation — one author's results for this config."""
+
+    author: str = Field(description="GitHub username of the benchmarker")
+    status: str = Field(default="verified", description="verified | claim | independent")
+    date: str = Field(description="Benchmark date YYYY-MM-DD")
+    method: str = Field(default="pawbench", description="Benchmark tool used")
+    source: str | None = Field(default=None, description="URL to source (for claims)")
+    source_label: str | None = None
+
+    # Results
+    tok_s: float | None = None
+    peak_tok_s: float | None = None
+    peak_concurrency: int | None = None
+    ttft_ms: float | None = None
+    quality_score: float | None = None
+    cacp_compliance: float | None = None
+    tool_call_accuracy: float | None = None
+    useful_token_ratio: float | None = None
+    steering_success_rate: float | None = None
+
+    notes: str | None = None
+
+
 class BenchmarkEntry(BaseModel):
     """A single benchmark measurement."""
 
@@ -131,12 +155,14 @@ class ServingCard(BaseModel):
     source: str | None = Field(default=None, description="URL to original benchmark source (for claims)")
     source_label: str | None = Field(default=None, description="Human-readable source description")
 
+    model_type: str | None = Field(default=None, description="Model type: dense-general, coding-specialist, etc.")
     description: str | None = None
 
     hardware_details: HardwareDetails | None = None
     quantization: QuantizationSection | None = None
     speculative_decoding: SpeculativeDecodingSection | None = None
     benchmark: BenchmarkSection | None = None
+    benchmarks: list[BenchmarkObservation] | None = None
     pawbench: PawBenchResults | None = None
     capacity: CapacitySection | None = None
     serving: ServingSection | None = None

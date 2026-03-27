@@ -44,6 +44,20 @@ pawbench:
   useful_token_ratio: 0.994
   tool_call_accuracy: 0.7
   steering_success_rate: 0.167
+benchmarks:
+  - author: zenprocess
+    status: verified
+    date: '2026-03-27'
+    method: pawbench
+    tok_s: 35.1
+    peak_tok_s: 140.3
+    peak_concurrency: 8
+    ttft_ms: 10736.0
+    quality_score: 0.593
+    cacp_compliance: 0.3
+    tool_call_accuracy: 0.7
+    useful_token_ratio: 0.994
+    steering_success_rate: 0.167
 capacity:
   context_limit: 131072
   max_concurrent: 8

@@ -30,6 +30,13 @@ benchmark:
     ttft_ms: 650
     context: "First-token latency, NVFP4 quantization"
 
+benchmarks:
+  - author: zenprocess
+    status: verified
+    date: "2025-06-15"
+    method: autoresearch
+    tok_s: 42
+    ttft_ms: 650
 capacity:
   context_limit: 262144
   context_soft_limit: 200000

@@ -59,8 +59,24 @@ def validate_card(path: Path) -> list[str]:
         return errors
 
     # Semantic validations
-    if card.benchmark is None:
+    if card.benchmark is None and card.benchmarks is None:
         errors.append("Missing benchmark section — at least one benchmark entry is recommended")
+
+    # Validate benchmarks[] entries
+    if card.benchmarks:
+        _METRIC_FIELDS = {
+            "tok_s", "peak_tok_s", "peak_concurrency", "ttft_ms",
+            "quality_score", "cacp_compliance", "tool_call_accuracy",
+            "useful_token_ratio", "steering_success_rate",
+        }
+        for i, obs in enumerate(card.benchmarks):
+            if not obs.author:
+                errors.append(f"benchmarks[{i}]: missing required field 'author'")
+            if not obs.date:
+                errors.append(f"benchmarks[{i}]: missing required field 'date'")
+            has_metric = any(getattr(obs, f, None) is not None for f in _METRIC_FIELDS)
+            if not has_metric:
+                errors.append(f"benchmarks[{i}]: must have at least one metric (tok_s, ttft_ms, quality_score, etc.)")
 
     if card.capacity is None:
         errors.append("Missing capacity section")
@@ -74,7 +90,7 @@ def validate_card(path: Path) -> list[str]:
             f"gpu_memory_utilization must be in (0, 1], got {card.capacity.gpu_memory_utilization}"
         )
 
-    if card.speculative_decoding and not card.benchmark:
+    if card.speculative_decoding and not card.benchmark and not card.benchmarks:
         errors.append("Speculative decoding config present but no benchmarks to validate it")
 
     return errors
