@@ -126,6 +126,11 @@ class ServingCard(BaseModel):
         default=None, description="Number of optimization iterations"
     )
 
+    # Verification status: verified (PawBench), claim (published numbers), independent (re-run)
+    status: str = Field(default="verified", description="verified | claim | independent")
+    source: str | None = Field(default=None, description="URL to original benchmark source (for claims)")
+    source_label: str | None = Field(default=None, description="Human-readable source description")
+
     description: str | None = None
 
     hardware_details: HardwareDetails | None = None

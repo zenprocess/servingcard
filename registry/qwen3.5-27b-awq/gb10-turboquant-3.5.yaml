@@ -1,0 +1,44 @@
+servingcard: "1.0"
+model: qwen3.5-27b-awq
+variant: turboquant-3.5-triton-native
+hardware: nvidia-gb10
+framework: vllm>=0.18.0rc1
+author: mitko-inferencing-engine
+created: "2026-03-27"
+method: published-benchmark
+
+# Verification status: claim (not independently verified with PawBench)
+# To verify: run `servingcard benchmark` against this config
+status: claim
+source: https://www.linkedin.com/feed/update/urn:li:activity:7442931347783831553/
+source_label: "Inferencing Engine blog — cold start numbers"
+
+serving:
+  engine_args:
+    model: qwen3.5-27b-awq
+    quantization: awq
+    max_model_len: 1010000
+
+benchmark:
+  single_stream:
+    tok_s: 223.9
+  parallel:
+    peak_tok_s: 218.0
+    peak_concurrency: 64
+  methodology:
+    tool: inferencing-engine-blog
+    suite: cold-start
+    notes: "Cold start — prefix cache hit rate 0.0%. No warm cache tricks."
+
+capacity:
+  context_limit: 1010000
+  max_concurrent: 64
+
+notes:
+  - "CLAIM — numbers from Inferencing Engine blog, not independently verified"
+  - "Qwen3.5-27B AWQ with TurboQuant 3.5 quantization"
+  - "Triton 3.6 TQ native kernel"
+  - "1,010,000 token context on NVIDIA GB10 (USB-charger-size device)"
+  - "1,243,968 token KV cache"
+  - "vLLM 0.18.0rc1"
+  - "To independently verify: servingcard benchmark --model qwen3.5-27b-awq --hardware nvidia-gb10"
