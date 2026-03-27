@@ -7,6 +7,13 @@ author: mitkox
 created: "2026-03-27"
 method: published-benchmark
 
+# HuggingFace model references
+huggingface:
+  base_model: Qwen/Qwen3.5-27B
+  quantized_model: cyankiwi/Qwen3.5-27B-AWQ-BF16-INT4
+  base_url: https://huggingface.co/Qwen/Qwen3.5-27B
+  quantized_url: https://huggingface.co/cyankiwi/Qwen3.5-27B-AWQ-BF16-INT4
+
 # This is a dense general-purpose model, not a coding specialist.
 # PawBench scores measure coding agent performance — this model may
 # excel at different tasks (long-context, general reasoning, etc.)
@@ -14,7 +21,7 @@ model_type: dense-general
 
 serving:
   engine_args:
-    model: qwen3.5-27b-awq
+    model: cyankiwi/Qwen3.5-27B-AWQ-BF16-INT4
     quantization: awq
     max_model_len: 1010000
     kv_cache_dtype: turboquant35
@@ -48,7 +55,7 @@ benchmarks:
     tool_call_accuracy: 0.867
     useful_token_ratio: 0.997
     steering_success_rate: 0.333
-    notes: "AWQ 4-bit on standard vLLM (not TurboQuant fork). 32K context (131K caused OOM). PawBench coding benchmark — this is a general model, not a coding specialist. Mitko's 223 tok/s claim uses TurboQuant 3.5 custom Triton kernels which we cannot replicate on standard vLLM."
+    notes: "cyankiwi/Qwen3.5-27B-AWQ-BF16-INT4 on standard vLLM 0.18 (not TurboQuant fork). 32K context (131K caused OOM on GB10 UMA). PawBench coding benchmark — this is a dense general model, not a coding specialist. Mitko's 223 tok/s claim uses mitkox/vllm-turboquant with custom Triton 3.6 TQ kernels (SM 12.1 native) which we cannot replicate on standard vLLM."
 
 notes:
   - "DENSE MODEL — not a coding specialist. PawBench coding scores may not reflect this model's strengths."

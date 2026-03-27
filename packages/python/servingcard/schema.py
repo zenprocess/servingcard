@@ -104,6 +104,15 @@ class CapacitySection(BaseModel):
     gpu_memory_utilization: float | None = None
 
 
+class HuggingFaceSection(BaseModel):
+    """HuggingFace model references."""
+
+    base_model: str | None = None
+    quantized_model: str | None = None
+    base_url: str | None = None
+    quantized_url: str | None = None
+
+
 class ServingSection(BaseModel):
     """Serving engine configuration."""
 
