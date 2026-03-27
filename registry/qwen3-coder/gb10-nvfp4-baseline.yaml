@@ -11,8 +11,8 @@ parameters: 80B (MoE, 12/48 full attention layers)
 architecture: Qwen3NextForCausalLM
 license: Apache-2.0
 huggingface:
-  model: Qwen/Qwen3-Coder
-  url: https://huggingface.co/Qwen/Qwen3-Coder
+  model: Qwen/Qwen3-Coder-Next
+  url: https://huggingface.co/Qwen/Qwen3-Coder-Next
 
 description: >
   NVFP4 quantization variant. Half the memory of FP8, enabling 262K

@@ -6,6 +6,12 @@ framework: vllm>=0.8.0
 author: zenprocess
 created: '2026-03-27'
 method: pawbench
+parameters: 24B
+architecture: MistralForCausalLM
+license: Apache-2.0
+huggingface:
+  model: mistralai/Devstral-Small-2-24B-Instruct-2512
+  url: https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512
 method_detail: PawBench full suite (PawStyle scenarios, 2 runs, concurrency 1/2/4/8)
 serving:
   engine_args:

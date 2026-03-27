@@ -6,6 +6,12 @@ framework: vllm>=0.8.0
 author: zenprocess
 created: '2026-03-27'
 method: pawbench
+parameters: 16B (MoE)
+architecture: DeepSeekV2ForCausalLM
+license: MIT
+huggingface:
+  model: deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
+  url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
 method_detail: PawBench full suite (PawStyle scenarios, 2 runs, concurrency 1/2/4/8)
 serving:
   engine_args:

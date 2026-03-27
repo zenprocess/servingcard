@@ -11,13 +11,16 @@ method: published-benchmark
 huggingface:
   base_model: Qwen/Qwen3.5-27B
   quantized_model: cyankiwi/Qwen3.5-27B-AWQ-BF16-INT4
-  base_url: https://huggingface.co/Qwen/Qwen3.5-27B
-  quantized_url: https://huggingface.co/cyankiwi/Qwen3.5-27B-AWQ-BF16-INT4
+  url: https://huggingface.co/Qwen/Qwen3.5-27B
+  
 
 # This is a dense general-purpose model, not a coding specialist.
 # PawBench scores measure coding agent performance — this model may
 # excel at different tasks (long-context, general reasoning, etc.)
 model_type: dense-general
+parameters: 27B (dense)
+architecture: Qwen2ForCausalLM
+license: Apache-2.0
 
 serving:
   engine_args:
