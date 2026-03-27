@@ -6,6 +6,7 @@ framework: vllm>=0.8.0
 author: zenprocess
 created: "2025-06-15"
 method: autoresearch
+quantization: nvfp4
 
 description: >
   NVFP4 quantization variant. Half the memory of FP8, enabling 262K
