@@ -35,6 +35,21 @@ benchmarks:
     peak_concurrency: 64
     notes: "Cold start — prefix cache hit rate 0.0%. No warm cache tricks. Triton 3.6 TQ native kernel."
 
+  - author: zenprocess
+    status: independent
+    date: "2026-03-27"
+    method: pawbench-full
+    tok_s: 27.9
+    peak_tok_s: 146.5
+    peak_concurrency: 8
+    ttft_ms: 10267
+    quality_score: 0.693
+    cacp_compliance: 0.133
+    tool_call_accuracy: 0.867
+    useful_token_ratio: 0.997
+    steering_success_rate: 0.333
+    notes: "AWQ 4-bit on standard vLLM (not TurboQuant fork). 32K context (131K caused OOM). PawBench coding benchmark — this is a general model, not a coding specialist. Mitko's 223 tok/s claim uses TurboQuant 3.5 custom Triton kernels which we cannot replicate on standard vLLM."
+
 notes:
   - "DENSE MODEL — not a coding specialist. PawBench coding scores may not reflect this model's strengths."
   - "1,010,000 token context on NVIDIA GB10"
