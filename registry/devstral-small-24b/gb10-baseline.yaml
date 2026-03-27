@@ -1,6 +1,6 @@
 servingcard: '1.0'
-model: qwen3-coder
-variant: fp8-baseline
+model: devstral-small-24b
+variant: baseline
 hardware: nvidia-gb10
 framework: vllm>=0.8.0
 author: zenprocess
@@ -9,19 +9,19 @@ method: pawbench
 method_detail: PawBench full suite (PawStyle scenarios, 2 runs, concurrency 1/2/4/8)
 serving:
   engine_args:
-    model: /home/vvladescu/models/qwen3-coder-next-fp8
-    quantization: fp8
+    model: /home/vvladescu/models/devstral-small-24b
+    quantization: bf16
     gpu_memory_utilization: 0.8
-    max_model_len: 131072
+    max_model_len: 65536
     max_num_seqs: 8
     enable_prefix_caching: true
     kv_cache_dtype: fp8_e4m3
 benchmark:
   single_stream:
-    tok_s: 26.7
-    ttft_ms: 10350.0
+    tok_s: 53.6
+    ttft_ms: 74.0
   parallel:
-    peak_tok_s: 186.4
+    peak_tok_s: 110.2
     peak_concurrency: 8
   methodology:
     tool: pawbench
@@ -35,15 +35,15 @@ benchmark:
     - 8
 pawbench:
   suite: full
-  single_stream_tok_s: 26.7
-  parallel_peak_tok_s: 186.4
+  single_stream_tok_s: 53.6
+  parallel_peak_tok_s: 110.2
   peak_concurrency: 8
-  ttft_ms: 10350.0
-  quality_score: 0.706
-  cacp_compliance: 0.1
-  useful_token_ratio: 0.998
-  tool_call_accuracy: 0.889
-  steering_success_rate: 0.367
+  ttft_ms: 74.0
+  quality_score: 0.293
+  cacp_compliance: 1.0
+  useful_token_ratio: 0.977
+  tool_call_accuracy: 0.0
+  steering_success_rate: 0.467
 capacity:
-  context_limit: 131072
+  context_limit: 65536
   max_concurrent: 8

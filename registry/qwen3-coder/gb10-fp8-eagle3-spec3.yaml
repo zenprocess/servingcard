@@ -1,80 +1,49 @@
-servingcard: "0.1"
+servingcard: '1.0'
 model: qwen3-coder
 variant: fp8-eagle3-spec3
 hardware: nvidia-gb10
 framework: vllm>=0.8.0
 author: zenprocess
-created: "2025-06-15"
+created: '2026-03-27'
 method: autoresearch
-method_iterations: 378
-
-description: >
-  Production config. FP8 quantization with Eagle3 speculative decoding
-  (3 draft tokens). Optimized over 378 autoresearch iterations on GB10.
-
-hardware_details:
-  gpu: nvidia-gb10
-  memory_gb: 128
-  memory_type: uma
-  architecture: grace-blackwell
-
-quantization:
-  method: fp8
-  bits: 8
-
-speculative_decoding:
-  method: eagle3
-  draft_tokens: 3
-  draft_model: aurora-spec-qwen3-coder
-  acceptance_rate_healthy: 0.65
-  acceptance_rate_alert_below: 0.50
-
-benchmark:
-  single_stream:
-    tok_s: 69
-    context: "Single request, no batching"
-  parallel:
-    peak_tok_s: 469
-    peak_concurrency: 8
-    context: "Peak throughput under parallel load"
-  latency:
-    ttft_ms: 1541
-    context: "First-token latency includes draft model warmup"
-
-capacity:
-  context_limit: 131072
-  context_soft_limit: 110000
-  max_concurrent: 8
-  gpu_memory_utilization: 0.90
-
+method_detail: PawBench full suite (PawStyle scenarios, 2 runs, concurrency 1/2/4/8)
 serving:
   engine_args:
-    model: qwen3-coder
+    model: /home/vvladescu/models/qwen3-coder-next-fp8
     quantization: fp8
-    speculative_model: aurora-spec-qwen3-coder
-    num_speculative_tokens: 3
-    gpu_memory_utilization: 0.90
+    gpu_memory_utilization: 0.8
     max_model_len: 131072
-  sampling_defaults:
-    temperature: 0.2
-    top_p: 1.0
-  sampling_notes:
-    - "logit_bias: unsupported under speculative decoding"
-    - "min_p: unsupported under speculative decoding"
-
-prerequisites:
-  models:
-    - path: ~/models/aurora-spec-qwen3-coder
-      description: "Eagle3 draft head model"
-  serve_script: ~/bin/vllm-serve-eagle3.sh
-
-readiness:
-  health_endpoint: /health
-  warmup_requests: 3
-  warmup_prompt: "Say ok."
-  warmup_max_tokens: 5
-
-notes:
-  - "CUDA graphs enabled (no enforce-eager). First 2-3 requests after restart are 3-5x slower."
-  - "Draft head uses 32K/151K vocab. Non-Latin tokens fall back to baseline speed."
-  - "Completion inflation ~1.8x — Eagle3 generates more tokens than requested."
+    max_num_seqs: 8
+    enable_prefix_caching: true
+    kv_cache_dtype: fp8_e4m3
+benchmark:
+  single_stream:
+    tok_s: 35.1
+    ttft_ms: 10736.0
+  parallel:
+    peak_tok_s: 140.3
+    peak_concurrency: 8
+  methodology:
+    tool: pawbench
+    suite: full
+    scenarios: PawStyle E-Commerce Dual Agent Dispatch
+    runs: 2
+    concurrency_levels:
+    - 1
+    - 2
+    - 4
+    - 8
+pawbench:
+  suite: full
+  single_stream_tok_s: 35.1
+  parallel_peak_tok_s: 140.3
+  peak_concurrency: 8
+  ttft_ms: 10736.0
+  quality_score: 0.593
+  cacp_compliance: 0.3
+  useful_token_ratio: 0.994
+  tool_call_accuracy: 0.7
+  steering_success_rate: 0.167
+capacity:
+  context_limit: 131072
+  max_concurrent: 8
