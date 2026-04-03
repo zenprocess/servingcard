@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0f"/>
+      <stop offset="50%" stop-color="#0f1729"/>
+      <stop offset="100%" stop-color="#0a0a0f"/>
+    </linearGradient>
+    <!-- Accent gradient -->
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff3366"/>
+      <stop offset="33%" stop-color="#ff5588"/>
+      <stop offset="66%" stop-color="#ff77aa"/>
+      <stop offset="100%" stop-color="#ff99cc"/>
+    </linearGradient>
+    <!-- Accent gradient vertical (for icon) -->
+    <linearGradient id="accent-v" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff3366"/>
+      <stop offset="100%" stop-color="#ff77aa"/>
+    </linearGradient>
+    <!-- Grid pattern -->
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Top accent line -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#accent)" opacity="0.8"/>
+
+  <!-- Icon: card/document -->
+  <g transform="translate(80, 80)">
+    <!-- Card outer -->
+    <rect x="15" y="5" width="65" height="80" rx="6" fill="none" stroke="url(#accent-v)" stroke-width="2.5" opacity="0.7" filter="url(#glow)"/>
+    <!-- Card inner lines (document content) -->
+    <line x1="28" y1="25" x2="68" y2="25" stroke="#ff5588" stroke-width="1.5" opacity="0.4"/>
+    <line x1="28" y1="37" x2="58" y2="37" stroke="#ff5588" stroke-width="1.5" opacity="0.3"/>
+    <line x1="28" y1="49" x2="63" y2="49" stroke="#ff5588" stroke-width="1.5" opacity="0.3"/>
+    <line x1="28" y1="61" x2="50" y2="61" stroke="#ff5588" stroke-width="1.5" opacity="0.2"/>
+    <!-- Card corner fold -->
+    <path d="M 60 5 L 80 5 L 80 25 Z" fill="#0f1729" stroke="url(#accent-v)" stroke-width="1" opacity="0.5"/>
+    <!-- Check mark -->
+    <path d="M 55 68 L 60 73 L 70 60" fill="none" stroke="#ff77aa" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  </g>
+
+  <!-- Title -->
+  <text x="80" y="210" font-family="'SF Mono', 'Fira Code', 'JetBrains Mono', monospace" font-size="82" font-weight="700" fill="#ffffff" letter-spacing="0.05em">SERVINGCARD</text>
+
+  <!-- Tagline -->
+  <text x="84" y="255" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="24" fill="#8888aa" letter-spacing="0.02em">Model serving cards for reproducible AI inference</text>
+
+  <!-- Feature pills -->
+  <g transform="translate(80, 290)">
+    <!-- Pill: Model Card -->
+    <rect x="0" y="0" width="125" height="36" rx="18" fill="none" stroke="#ff3366" stroke-opacity="0.5" stroke-width="1"/>
+    <text x="62" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#ff5588" letter-spacing="0.03em">Model Card</text>
+    <!-- Pill: GPU Config -->
+    <rect x="140" y="0" width="125" height="36" rx="18" fill="none" stroke="#ff3366" stroke-opacity="0.5" stroke-width="1"/>
+    <text x="202" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#ff5588" letter-spacing="0.03em">GPU Config</text>
+    <!-- Pill: Quantization -->
+    <rect x="280" y="0" width="135" height="36" rx="18" fill="none" stroke="#ff3366" stroke-opacity="0.5" stroke-width="1"/>
+    <text x="347" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#ff5588" letter-spacing="0.03em">Quantization</text>
+    <!-- Pill: Benchmark -->
+    <rect x="430" y="0" width="125" height="36" rx="18" fill="none" stroke="#ff3366" stroke-opacity="0.5" stroke-width="1"/>
+    <text x="492" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#ff5588" letter-spacing="0.03em">Benchmark</text>
+    <!-- Pill: Export -->
+    <rect x="570" y="0" width="100" height="36" rx="18" fill="none" stroke="#ff3366" stroke-opacity="0.5" stroke-width="1"/>
+    <text x="620" y="23" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#ff5588" letter-spacing="0.03em">Export</text>
+  </g>
+
+  <!-- Architecture mini-diagram -->
+  <g transform="translate(80, 400)">
+    <!-- Pipeline boxes -->
+    <rect x="0" y="0" width="120" height="44" rx="6" fill="#0a0a0f" stroke="#ff3366" stroke-opacity="0.3" stroke-width="1"/>
+    <text x="60" y="27" text-anchor="middle" font-family="'SF Mono', monospace" font-size="12" fill="#ff77aa">Endpoint</text>
+
+    <rect x="160" y="0" width="100" height="44" rx="6" fill="#0a0a0f" stroke="#ff3366" stroke-opacity="0.3" stroke-width="1"/>
+    <text x="210" y="27" text-anchor="middle" font-family="'SF Mono', monospace" font-size="12" fill="#ff77aa">Probe</text>
+
+    <rect x="300" y="0" width="110" height="44" rx="6" fill="#0a0a0f" stroke="#ff3366" stroke-opacity="0.3" stroke-width="1"/>
+    <text x="355" y="27" text-anchor="middle" font-family="'SF Mono', monospace" font-size="12" fill="#ff77aa">Metrics</text>
+
+    <rect x="450" y="0" width="100" height="44" rx="6" fill="#0a0a0f" stroke="#ff3366" stroke-opacity="0.3" stroke-width="1"/>
+    <text x="500" y="27" text-anchor="middle" font-family="'SF Mono', monospace" font-size="12" fill="#ff77aa">Card</text>
+
+    <rect x="590" y="0" width="110" height="44" rx="6" fill="#0a0a0f" stroke="#ff3366" stroke-opacity="0.3" stroke-width="1"/>
+    <text x="645" y="27" text-anchor="middle" font-family="'SF Mono', monospace" font-size="12" fill="#ff77aa">Export</text>
+
+    <!-- Arrows -->
+    <polygon points="158,18 158,26 152,22" fill="#ff3366" opacity="0.4"/>
+    <polygon points="298,18 298,26 292,22" fill="#ff3366" opacity="0.4"/>
+    <polygon points="448,18 448,26 442,22" fill="#ff3366" opacity="0.4"/>
+    <polygon points="588,18 588,26 582,22" fill="#ff3366" opacity="0.4"/>
+
+    <line x1="122" y1="22" x2="158" y2="22" stroke="#ff3366" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="262" y1="22" x2="298" y2="22" stroke="#ff3366" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="412" y1="22" x2="448" y2="22" stroke="#ff3366" stroke-opacity="0.4" stroke-width="1"/>
+    <line x1="552" y1="22" x2="588" y2="22" stroke="#ff3366" stroke-opacity="0.4" stroke-width="1"/>
+  </g>
+
+  <!-- standra.ai badge (bottom-right) -->
+  <g transform="translate(1020, 570)">
+    <rect x="0" y="0" width="150" height="32" rx="16" fill="#0a0a0f" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
+    <text x="75" y="21" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#8888aa" letter-spacing="0.05em">
+      <tspan fill="#aaaacc" font-weight="600">standra</tspan>.ai
+    </text>
+  </g>
+
+  <!-- Bottom accent line -->
+  <rect x="0" y="627" width="1200" height="3" fill="url(#accent)" opacity="0.4"/>
+</svg>

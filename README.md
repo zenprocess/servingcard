@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/og-image.svg" alt="ServingCard" width="800" />
+</p>
+
 # servingcard
 
 > Hardware-specific LLM serving configurations. Model cards for serving.
@@ -427,3 +431,8 @@ Inspired by [HuggingFace Model Cards](https://huggingface.co/docs/hub/model-card
 ## License
 
 [MIT](LICENSE)
+
+---
+<p align="center">
+  <img src="docs/standra-footer.svg" alt="Part of standra.ai" width="400" />
+</p>
