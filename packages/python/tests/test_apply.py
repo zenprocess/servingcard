@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import pytest
-
 from servingcard.apply import (
     REGISTRY_BASE_URL,
     generate_launch_command,
@@ -12,12 +10,8 @@ from servingcard.apply import (
     resolve_source,
 )
 from servingcard.schema import (
-    CapacitySection,
     ServingCard,
-    ServingSection,
-    SpeculativeDecodingSection,
 )
-
 
 # ---------------------------------------------------------------------------
 # Helpers

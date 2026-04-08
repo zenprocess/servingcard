@@ -13,7 +13,6 @@ from servingcard.backends import (
     get_backend,
 )
 
-
 # ---------------------------------------------------------------------------
 # 1. ManualBackend.run returns expected keys (mock input)
 # ---------------------------------------------------------------------------

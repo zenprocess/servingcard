@@ -65,7 +65,10 @@ def generate_vllm_command(card: ServingCard) -> str:
 def generate_tgi_command(card: ServingCard) -> str:
     """Generate a TGI launch command from a servingcard."""
     if not card.serving or not card.serving.engine_args:
-        return f"# No engine_args in servingcard -- cannot generate TGI command\ntext-generation-launcher --model-id {card.model}"
+        return (
+            "# No engine_args in servingcard -- cannot generate TGI command\n"
+            f"text-generation-launcher --model-id {card.model}"
+        )
 
     args = card.serving.engine_args.copy()
     model_id = args.pop("model", card.model)

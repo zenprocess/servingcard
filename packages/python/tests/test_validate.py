@@ -4,11 +4,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import pytest
 import yaml
 
 from servingcard.validate import validate_card
-
 
 # ---------------------------------------------------------------------------
 # 1. Valid config returns empty errors list
