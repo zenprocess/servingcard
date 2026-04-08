@@ -43,7 +43,4 @@ jobs:
       - name: Install
         run: pip install -e packages/python
       - name: Validate all registry configs
-        run: |
-          for f in registry/**/*.yaml; do
-            python -m servingcard validate "$f"
-          done
+        run: python -m servingcard validate registry/

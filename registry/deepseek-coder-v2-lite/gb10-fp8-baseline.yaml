@@ -15,7 +15,7 @@ huggingface:
 method_detail: PawBench full suite (PawStyle scenarios, 2 runs, concurrency 1/2/4/8)
 serving:
   engine_args:
-    model: /home/vvladescu/models/deepseek-coder-v2-lite-fp8
+    model: ${MODEL_DIR}/deepseek-coder-v2-lite-fp8
     quantization: fp8
     gpu_memory_utilization: 0.8
     max_model_len: 65536

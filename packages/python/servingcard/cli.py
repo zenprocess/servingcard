@@ -218,17 +218,48 @@ def _fetch_remote_card(url: str) -> ServingCard:
 
 @app.command()
 def validate(
-    path: Path = typer.Argument(..., help="Path to a servingcard YAML file"),
+    paths: list[Path] = typer.Argument(
+        ...,
+        help="One or more servingcard YAML files (or directories to recurse)",
+        exists=True,
+        file_okay=True,
+        dir_okay=True,
+        readable=True,
+    ),
 ) -> None:
-    """Validate a servingcard YAML file."""
-    errors = validate_card(path)
-    if errors:
-        typer.echo(f"INVALID: {path}")
-        for err in errors:
-            typer.echo(f"  - {err}")
+    """Validate one or more servingcard YAML files.
+
+    Accepts files or directories. Directories are recursed for *.yaml and
+    *.yml. Exits 1 on any invalid file. Always loud about what was found —
+    silent success on a typo'd path is the failure mode this command is
+    built to prevent (CI used to silently iterate a literal glob).
+    """
+    targets: list[Path] = []
+    for p in paths:
+        if p.is_dir():
+            targets.extend(sorted(p.rglob("*.yaml")))
+            targets.extend(sorted(p.rglob("*.yml")))
+        else:
+            targets.append(p)
+
+    if not targets:
+        typer.echo("ERROR: no .yaml or .yml files found in given paths", err=True)
+        raise typer.Exit(code=2)
+
+    invalid = 0
+    for target in targets:
+        errors = validate_card(target)
+        if errors:
+            invalid += 1
+            typer.echo(f"INVALID: {target}")
+            for err in errors:
+                typer.echo(f"  - {err}")
+        else:
+            typer.echo(f"VALID: {target}")
+
+    typer.echo(f"\n{len(targets) - invalid}/{len(targets)} valid")
+    if invalid:
         raise typer.Exit(code=1)
-    else:
-        typer.echo(f"VALID: {path}")
 
 
 # ---------------------------------------------------------------------------
