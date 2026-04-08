@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class BenchmarkObservation(BaseModel):
@@ -78,11 +78,33 @@ class HardwareDetails(BaseModel):
     architecture: str | None = None
 
 
+_QUANT_BITS: dict[str, int] = {
+    "fp4": 4,
+    "nvfp4": 4,
+    "int4": 4,
+    "fp8": 8,
+    "int8": 8,
+    "fp16": 16,
+    "bf16": 16,
+    "fp32": 32,
+}
+
+
 class QuantizationSection(BaseModel):
-    """Quantization configuration."""
+    """Quantization configuration.
+
+    Accepts either a structured form (`{method: fp8, bits: 8}`) or a bare
+    string shorthand (`fp8`) coerced via `from_shorthand`. Bit width is
+    inferred from the well-known method name; unknown shorthands default
+    to 0 bits with a warning rather than failing the load.
+    """
 
     method: str
-    bits: int
+    bits: int = 0
+
+    @classmethod
+    def from_shorthand(cls, value: str) -> "QuantizationSection":
+        return cls(method=value, bits=_QUANT_BITS.get(value.lower(), 0))
 
 
 class SpeculativeDecodingSection(BaseModel):
@@ -169,6 +191,13 @@ class ServingCard(BaseModel):
 
     hardware_details: HardwareDetails | None = None
     quantization: QuantizationSection | None = None
+
+    @field_validator("quantization", mode="before")
+    @classmethod
+    def _coerce_quantization(cls, v: object) -> object:
+        if isinstance(v, str):
+            return QuantizationSection.from_shorthand(v)
+        return v
     speculative_decoding: SpeculativeDecodingSection | None = None
     benchmark: BenchmarkSection | None = None
     benchmarks: list[BenchmarkObservation] | None = None

@@ -7,7 +7,6 @@ from pathlib import Path
 import pytest
 import yaml
 
-
 REAL_EAGLE3_CONFIG = (
     Path(__file__).resolve().parents[3] / "registry" / "qwen3-coder" / "gb10-fp8-eagle3-spec3.yaml"
 )

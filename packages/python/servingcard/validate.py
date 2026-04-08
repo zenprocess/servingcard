@@ -32,7 +32,7 @@ def validate_card(path: Path) -> list[str]:
     if not path.exists():
         return [f"File not found: {path}"]
 
-    if not path.suffix in (".yaml", ".yml"):
+    if path.suffix not in (".yaml", ".yml"):
         errors.append(f"Expected .yaml or .yml extension, got: {path.suffix}")
 
     try:

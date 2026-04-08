@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import sys
 from datetime import date
 from pathlib import Path
 from typing import Optional
@@ -11,7 +10,6 @@ import typer
 import yaml
 
 from servingcard.apply import (
-    REGISTRY_BASE_URL,
     generate_launch_command,
     resolve_source,
 )
@@ -201,7 +199,7 @@ def apply(
 def _fetch_remote_card(url: str) -> ServingCard:
     """Fetch a servingcard from a URL."""
     try:
-        from urllib.request import urlopen, Request
+        from urllib.request import Request, urlopen
 
         req = Request(url, headers={"User-Agent": "servingcard-cli/0.1"})
         with urlopen(req, timeout=15) as resp:

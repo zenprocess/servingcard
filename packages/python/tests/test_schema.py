@@ -10,14 +10,12 @@ from pydantic import ValidationError
 
 from servingcard.schema import (
     BenchmarkEntry,
-    BenchmarkSection,
     CapacitySection,
     PawBenchResults,
     ServingCard,
     ServingSection,
     SpeculativeDecodingSection,
 )
-
 
 # ---------------------------------------------------------------------------
 # 1. from_yaml loads real config
