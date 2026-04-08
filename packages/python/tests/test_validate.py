@@ -5,8 +5,12 @@ from __future__ import annotations
 from pathlib import Path
 
 import yaml
+from typer.testing import CliRunner
 
+from servingcard.cli import app as _app
 from servingcard.validate import validate_card
+
+_runner = CliRunner()
 
 # ---------------------------------------------------------------------------
 # 1. Valid config returns empty errors list
@@ -167,3 +171,37 @@ def test_speculative_without_benchmark(tmp_path: Path, minimal_card_dict: dict) 
     p.write_text(yaml.dump(d))
     errors = validate_card(p)
     assert any("speculative" in e.lower() for e in errors)
+
+
+# ---------------------------------------------------------------------------
+# Spec 009 follow-up: validate CLI must fail loudly on missing paths and
+# accept directories. Regression for the "silent literal-glob" CI failure.
+# ---------------------------------------------------------------------------
+
+
+def test_validate_cli_fails_on_missing_path() -> None:
+    result = _runner.invoke(_app, ["validate", "/no/such/path/at/all.yaml"])
+    assert result.exit_code != 0
+
+
+def test_validate_cli_recurses_directory(tmp_path: Path, tmp_valid_yaml: Path) -> None:
+    nested = tmp_path / "nested" / "dir"
+    nested.mkdir(parents=True)
+    (nested / "card.yaml").write_text(tmp_valid_yaml.read_text())
+    result = _runner.invoke(_app, ["validate", str(tmp_path)])
+    assert result.exit_code == 0, result.stdout
+    assert "VALID" in result.stdout
+    assert "2/2 valid" in result.stdout
+
+
+def test_validate_cli_directory_with_no_yaml_errors(tmp_path: Path) -> None:
+    result = _runner.invoke(_app, ["validate", str(tmp_path)])
+    assert result.exit_code == 2  # distinct from validation failure (1)
+
+
+def test_validate_cli_accepts_multiple_paths(tmp_path: Path, tmp_valid_yaml: Path) -> None:
+    p2 = tmp_path / "second.yaml"
+    p2.write_text(tmp_valid_yaml.read_text())
+    result = _runner.invoke(_app, ["validate", str(tmp_valid_yaml), str(p2)])
+    assert result.exit_code == 0, result.stdout
+    assert "2/2 valid" in result.stdout
